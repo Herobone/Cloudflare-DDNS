@@ -9,6 +9,7 @@ import (
 )
 
 func update(api *cloudflare.API, dnsConfig *config.DNSConfig) error {
+	dnsConfig.GetExternalIP()
 
 	log.Println("External IP:", dnsConfig.ExternalIP)
 
