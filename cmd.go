@@ -15,6 +15,7 @@ import (
 
 type updateCMD struct {
 	config.DNSConfig
+	apiToken string
 }
 
 func (*updateCMD) Name() string     { return "update" }
@@ -61,10 +62,13 @@ func (p *updateCMD) SetFlags(f *flag.FlagSet) {
 
 	f.StringVar(&p.DNSName, "name", nameFromENV, "The Name of the DNS Record")
 	f.StringVar(&p.DNSName, "n", nameFromENV, "The Name of the DNS Record")
+
+	apiTokenFromENV := os.Getenv("CLOUDFLARE_API_TOKEN")
+	f.StringVar(&p.apiToken, "token", apiTokenFromENV, "Cloudflare API Token")
 }
 
 func (p *updateCMD) Execute(_ context.Context, f *flag.FlagSet, _ ...interface{}) subcommands.ExitStatus {
-	api, err := cloudflare.NewWithAPIToken(os.Getenv("CLOUDFLARE_API_TOKEN"))
+	api, err := cloudflare.NewWithAPIToken(p.apiToken)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return subcommands.ExitFailure
