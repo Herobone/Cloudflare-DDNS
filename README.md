@@ -10,6 +10,19 @@ To tackle this issue I created this tool.
 
 It fetches the external IP from [myexternalip.com](https://myexternalip.com/) and then saves it in a DNS record in your cloudflare account.
 
+## Key features
+- Minimal Docker image (*< 7 MB*)
+- Multiarch support (ARM64, ARMv7, ARMv6, x86, x64)
+- One throw (Only executed once)
+- Commandline support
+- Fast and reliable
+
+This container runs once, because often multiple runs are not needed.
+
+I personally use it in [Virtual Machines on GCP](https://cloud.google.com/compute). Those are either preempted or restarted at least once a day. So there i no need for running a script periodically.
+
+For a usecase have a look at [Cloud Craft](https://github.com/Herobone/CloudCraft) a cheap Minecraft Server that runs on GCP architecture
+
 ## Install module
 
 ```bash
